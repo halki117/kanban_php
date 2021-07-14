@@ -33,9 +33,9 @@ class ListingsController extends Controller
         return view('listing/new');
     }
 
-    public function stor(Request $request)
+    public function store(Request $request)
     {
-        $validator = Validetor::make($request->all(), ['list_name' => 'required | max:255 ']);
+        $validator = Validator::make($request->all(), ['list_name' => 'required | max:255 ']);
 
         if($validator->fails())
         {
@@ -44,7 +44,7 @@ class ListingsController extends Controller
 
         $listings = new Listing;
         $listings->title = $request->list_name;
-        $listings->user_id = $request->Auth::user()->id;
+        $listings->user_id = Auth::user()->id;
 
         $listings->save();
 
